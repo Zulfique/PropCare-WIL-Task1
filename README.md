@@ -139,7 +139,11 @@ All styles are in `css/styles.css` using:
 
 ## Deployment URL
 
-View the live prototype at: https://zulfique.github.io/PropCare-WIL-Task1/login.html
+A GitHub Pages redeploy has been triggered by updating this README. The Pages workflow will publish the `prototype` folder; once the deployment completes the live prototype will be available at:
+
+https://zulfique.github.io/PropCare-WIL-Task1/login.html
+
+I will update this URL in the README again after the deployment finishes and a final, working Pages URL is available.
 
 ## Notes
 
@@ -156,4 +160,3 @@ View the live prototype at: https://zulfique.github.io/PropCare-WIL-Task1/login.
 ## License
 
 Internal prototype for Obs Realty Group.
-
