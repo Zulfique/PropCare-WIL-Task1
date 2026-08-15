@@ -637,6 +637,16 @@ table.data-table {
   min-height: 100vh;
   background: #fff;
   box-shadow: 0 20px 60px rgba(16, 29, 49, 0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.login-container.hidden {
+  display: none;
 }
 
 /* Left side: Brand & Features */
