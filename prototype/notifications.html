@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notifications — PropCare</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="pc-sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="pc-topbar"></header>
+
+    <main class="content">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">Activity centre</p>
+          <h1 class="page-title">Notifications</h1>
+          <p class="page-sub">Important updates, without the message sprawl.</p>
+        </div>
+        <button class="btn btn-outline" id="pc-mark-read">✓ Mark all read</button>
+      </div>
+
+      <section class="card section-card" style="padding-bottom: 4px;">
+        <div id="pc-notif-list"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="data/user.js"></script>
+<script src="data/notifications.js"></script>
+<script src="js/app.js"></script>
+<script>
+  PC.mountShell("notifications");
+
+  function render() {
+    var items = window.PROPCARE_NOTIFICATIONS.items;
+    var el = document.getElementById("pc-notif-list");
+    if (!items.length) {
+      el.innerHTML = '<div class="empty-state">You\'re all caught up — no notifications right now.</div>';
+      return;
+    }
+    el.innerHTML = items.map(function (n) {
+      return (
+        '<div class="notif-item">' +
+          '<div class="notif-icon">' + PC.icon("bell") + "</div>" +
+          "<div>" +
+            '<span class="notif-title">' + n.title + '</span><span class="notif-time">' + n.time + "</span>" +
+            '<div class="notif-body">' + n.body + "</div>" +
+          "</div>" +
+        "</div>"
+      );
+    }).join("");
+  }
+
+  document.getElementById("pc-mark-read").addEventListener("click", function () {
+    window.PROPCARE_NOTIFICATIONS.items = [];
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>

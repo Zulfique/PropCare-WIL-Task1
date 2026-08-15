@@ -1,83 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PropCare — Smart Property Maintenance Management</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Overview — PropCare</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- ============ LOGIN SCREEN ============ -->
-  <div id="loginScreen" class="login-screen hidden">
-    <div class="login-left">
-      <div class="brand brand-lg">
-        <span class="brand-logo">&#128737;</span>
-        <span class="brand-name">PropCare</span>
+<div class="app-shell">
+  <aside class="sidebar" id="pc-sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="pc-topbar"></header>
+
+    <main class="content">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow" id="pc-date">Overview</p>
+          <h1 class="page-title" id="pc-greeting">Good morning</h1>
+          <p class="page-sub">Keep an eye on your home. We will keep you updated.</p>
+        </div>
+        <button class="btn btn-primary" onclick="location.href='requests.html'">
+          <span aria-hidden="true">+</span> Report an issue
+        </button>
       </div>
-      <p class="login-headline">A better maintenance rhythm.</p>
-      <p class="login-sub">Nothing lost between the next call. PropCare brings residents, property teams and technicians into one calm, auditable workflow.</p>
-      <ul class="login-points">
-        <li>Report issues in under a minute, with photos</li>
-        <li>Track every request from report to resolution</li>
-        <li>One auditable history for the whole portfolio</li>
-      </ul>
-    </div>
-    <div class="login-right">
-      <div class="login-card">
-        <div class="login-portal">HORIZON TEAM PORTAL</div>
-        <h2>Welcome back</h2>
-        <p class="login-card-sub">Sign in to continue to your workspace.</p>
 
-        <label class="field-label" for="loginRole">Demo account</label>
-        <select id="loginRole" class="field">
-          <option value="U1" selected>Sarah Williams — Tenant</option>
-          <option value="U2">Michael Jacobs — Property Manager</option>
-          <option value="U9">Johan van der Merwe — Technician</option>
-          <option value="U14">System Admin — Administrator</option>
-        </select>
+      <section class="stat-grid" id="pc-stats"></section>
 
-        <label class="field-label" for="loginEmail">Work email</label>
-        <input class="field" id="loginEmail" type="email" value="sarahwilliams@example.com">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Recent requests</h2>
+            <p class="section-sub">The latest movement in your maintenance workflow.</p>
+          </div>
+          <a href="requests.html" class="btn btn-outline">View all</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Request</th><th>Location</th><th>Priority</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="pc-recent-requests"></tbody>
+          </table>
+        </div>
+      </section>
 
-        <label class="field-label" for="loginPassword">Password</label>
-        <input class="field" id="loginPassword" type="password" value="password123" autocomplete="current-password">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Workload pulse</h2>
+            <p class="section-sub">Requests created vs resolved.</p>
+          </div>
+        </div>
+        <div class="bars" id="pc-bars"></div>
+        <div class="legend" id="pc-legend"></div>
+      </section>
 
-        <button type="button" id="loginBtn" class="btn btn-accent btn-block">Sign in to PropCare</button>
-        <button type="button" id="forgotBtn" class="btn-link">Forgot your password?</button>
-        <p class="login-demo-note">Demo environment — no external services connected</p>
-      </div>
-    </div>
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Priority attention</h2>
+          </div>
+        </div>
+        <div id="pc-priority"></div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Categories</h2>
+          </div>
+          <span class="section-sub">This month</span>
+        </div>
+        <div id="pc-categories"></div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Good to know</h2>
+          </div>
+        </div>
+        <div id="pc-good-to-know" style="padding-bottom: 18px;"></div>
+      </section>
+    </main>
   </div>
+</div>
 
-  <!-- ============ APP SHELL ============ -->
-  <div id="app" class="hidden">
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-logo">&#128737;</span>
-        <span class="brand-name">PropCare</span>
-        <span class="workspace">HORIZON PROPERTY GROUP <span class="ws-ws">WORKSPACE</span></span>
-      </div>
-      <nav class="topnav" id="topNav" aria-label="Primary navigation"></nav>
-      <div class="topbar-user">
-        <span class="avatar" id="userAvatar">sw</span>
-        <span class="user-name" id="userName">Sarah Williams</span>
-        <button type="button" class="btn-link signout" id="signOutBtn">Sign out</button>
-      </div>
-    </header>
-    <div class="breadcrumb" id="breadcrumb"></div>
-    <main class="app-body" id="appBody"></main>
-  </div>
+<script src="js/icons.js"></script>
+<script src="data/user.js"></script>
+<script src="data/notifications.js"></script>
+<script src="data/requests.js"></script>
+<script src="data/overview.js"></script>
+<script src="js/app.js"></script>
+<script>
+  PC.mountShell("overview");
 
-  <nav class="bottom-nav" id="bottomNav" aria-label="Mobile navigation"></nav>
+  var ov = window.PROPCARE_OVERVIEW;
+  document.getElementById("pc-date").textContent = ov.date.toUpperCase();
+  document.getElementById("pc-greeting").textContent = "Good morning, " + ov.greetingName;
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <div id="modalBackdrop" class="modal-backdrop hidden" onclick="App.closeModal()">
-    <div class="modal" onclick="event.stopPropagation()" id="modalBox"></div>
-  </div>
+  // Stat cards
+  document.getElementById("pc-stats").innerHTML = ov.stats.map(function (s) {
+    return (
+      '<div class="card stat-card">' +
+        '<div class="stat-top">' +
+          '<span class="stat-label">' + s.label + "</span>" +
+          '<div class="stat-icon">' + PC.icon(s.icon) + "</div>" +
+        "</div>" +
+        '<div class="stat-value">' + s.value + "</div>" +
+        '<div class="stat-foot' + (s.positive ? " positive" : "") + '">' + s.foot + "</div>" +
+      "</div>"
+    );
+  }).join("");
 
-  <script src="data/propcare.js"></script>
-  <script src="js/app.js"></script>
+  // Recent requests (first 4)
+  var reqs = window.PROPCARE_REQUESTS.items.slice(0, 4);
+  document.getElementById("pc-recent-requests").innerHTML = reqs.map(function (r) {
+    return (
+      "<tr>" +
+        "<td>" +
+          '<span class="req-code">' + r.code + "</span>" +
+          '<span class="req-title">' + r.title + "</span>" +
+          '<span class="req-meta">' + r.category + " · " + r.reporter + "</span>" +
+        "</td>" +
+        "<td>" +
+          '<span class="loc-main">' + r.location + "</span>" +
+          '<span class="loc-sub">' + r.unit + "</span>" +
+        "</td>" +
+        "<td>" + PC.priorityBadge(r.priority) + "</td>" +
+        "<td>" + PC.statusBadge(r.status) + "</td>" +
+      "</tr>"
+    );
+  }).join("");
+
+  // Workload bars
+  var maxVal = Math.max.apply(null, ov.workload.days.map(function (d) { return Math.max(d.created, d.resolved); }));
+  document.getElementById("pc-bars").innerHTML = ov.workload.days.map(function (d) {
+    var cH = Math.max(6, Math.round((d.created / maxVal) * 120));
+    var rH = Math.max(6, Math.round((d.resolved / maxVal) * 120));
+    return (
+      '<div class="bar-group">' +
+        '<div class="bar-pair">' +
+          '<div class="bar bar-created" style="height:' + (d.created ? cH : 4) + 'px"></div>' +
+          '<div class="bar bar-resolved" style="height:' + (d.resolved ? rH : 4) + 'px"></div>' +
+        "</div>" +
+        '<span class="bar-day">' + d.day + "</span>" +
+      "</div>"
+    );
+  }).join("");
+  document.getElementById("pc-legend").innerHTML =
+    '<span><i class="i-created"></i>Created ' + ov.workload.created + "</span>" +
+    '<span><i class="i-resolved"></i>Resolved ' + ov.workload.resolved + "</span>";
+
+  // Priority attention
+  document.getElementById("pc-priority").innerHTML = ov.priorityAttention.map(function (p) {
+    return (
+      '<div class="priority-item">' +
+        '<div class="priority-icon">' + PC.icon("warning") + "</div>" +
+        "<div>" +
+          '<span class="priority-title">' + p.title + "</span>" + PC.priorityBadge(p.priority) +
+          '<div class="priority-meta">' + p.code + " · " + p.location + "</div>" +
+        "</div>" +
+      "</div>"
+    );
+  }).join("");
+
+  // Categories
+  document.getElementById("pc-categories").innerHTML = ov.categories.map(function (c) {
+    return (
+      '<div class="cat-row">' +
+        '<div class="cat-top"><span class="cat-name">' + c.name + '</span><span class="cat-count">' + c.count + "</span></div>" +
+        '<div class="cat-track"><div class="cat-fill" style="width:' + c.pct + '%"></div></div>' +
+      "</div>"
+    );
+  }).join("");
+
+  // Good to know
+  document.getElementById("pc-good-to-know").innerHTML = ov.goodToKnow.map(function (g) {
+    var cls = g.type === "teal" ? "callout-teal" : "callout-amber";
+    var ic = g.type === "teal" ? "shield" : "clock";
+    return '<div class="callout ' + cls + '">' + PC.icon(ic) + "<span>" + g.text + "</span></div>";
+  }).join("");
+</script>
 </body>
 </html>

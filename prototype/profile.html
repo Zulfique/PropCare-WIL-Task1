@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile — PropCare</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="pc-sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="pc-topbar"></header>
+
+    <main class="content">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">Your account</p>
+          <h1 class="page-title">Profile</h1>
+          <p class="page-sub">Keep your contact details current.</p>
+        </div>
+        <button class="btn btn-primary" id="pc-save">Save changes</button>
+      </div>
+
+      <section class="card profile-card">
+        <div class="profile-head">
+          <div class="profile-avatar" id="pc-avatar"></div>
+          <div>
+            <div class="profile-name" id="pc-name"></div>
+            <div class="profile-role" id="pc-role"></div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="pc-full-name">Full name</label>
+            <input id="pc-full-name" type="text" />
+          </div>
+          <div class="field">
+            <label for="pc-phone">Phone</label>
+            <input id="pc-phone" type="text" />
+          </div>
+          <div class="field full">
+            <label for="pc-email">Email</label>
+            <input id="pc-email" type="email" />
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="data/user.js"></script>
+<script src="data/notifications.js"></script>
+<script src="js/app.js"></script>
+<script>
+  PC.mountShell("profile");
+
+  var u = window.PROPCARE_USER;
+  document.getElementById("pc-avatar").textContent = u.initials;
+  document.getElementById("pc-name").textContent = u.name;
+  document.getElementById("pc-role").textContent = u.role;
+  document.getElementById("pc-full-name").value = u.name;
+  document.getElementById("pc-phone").value = u.phone;
+  document.getElementById("pc-email").value = u.email;
+
+  document.getElementById("pc-save").addEventListener("click", function () {
+    u.name = document.getElementById("pc-full-name").value;
+    u.phone = document.getElementById("pc-phone").value;
+    u.email = document.getElementById("pc-email").value;
+    document.getElementById("pc-name").textContent = u.name;
+    var btn = document.getElementById("pc-save");
+    var original = btn.textContent;
+    btn.textContent = "Saved";
+    setTimeout(function () { btn.textContent = original; }, 1400);
+  });
+</script>
+</body>
+</html>
