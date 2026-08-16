@@ -106,29 +106,92 @@ Or open `prototype/login.html` directly in any modern browser.
 
 ## Development
 
-### File Organization
+### Architecture
 
-- `login.html` - Entry point with authentication UI
-- Individual page files (`index.html`, `requests.html`, etc.) handle navigation
-- `js/app.js` coordinates routing and page mounting
-- `data/*.js` contains all dummy data
-- `css/styles.css` defines the complete design system
+The prototype follows a single-page app pattern with consolidated data management:
+
+- **`login.html`** — Entry point with authentication UI
+- **`index.html`** — Dashboard/main app shell (mounts via `js/app.js`)
+- **`js/app.js`** — Core application logic:
+  - Loads seed data from `window.PROPCARE_SEED`
+  - Manages navigation and view mounting
+  - Handles user state and session logic
+- **`data/seed-data.js`** — Consolidated demo data source:
+  - 15 tenant users
+  - 8 technician users
+  - 5 staff users (managers & admins)
+  - 10 properties with unit configurations
+  - 39 auto-generated maintenance requests
+  - Status, category, and role label definitions
+  - Pre-initialized notifications
+- **`css/style.css`** — Unified design system with CSS custom properties
+
+### Data Model
+
+All demo data is exposed via `window.PROPCARE_SEED`:
+
+```javascript
+{
+  categories: ["Plumbing", "Electrical", ...],
+  statusLabels: { submitted, assigned, accepted, ... },
+  roleLabels: { tenant, manager, technician, admin },
+  defaultState: {
+    users,        // All user accounts
+    properties,   // Property portfolio
+    requests,     // Maintenance requests
+    notifications // Activity feed
+  }
+}
+```
 
 ### Styling Approach
 
-All styles are in `css/styles.css` using:
-- CSS custom properties (variables) for colors and spacing
-- Mobile-first responsive design
-- Grid and Flexbox for layouts
-- Semantic class names for maintainability
+- **`css/style.css`** — Single unified stylesheet using:
+  - CSS custom properties (variables) for colors, spacing, and sizing
+  - Mobile-first responsive design
+  - CSS Grid and Flexbox for layouts
+  - Semantic class names for maintainability
+  - Brand colors: Navy (`#101d31`), Teal (`#2fc4ac`), Light background (`#f4f6f8`)
 
-### Adding New Pages
+### Adding Features
 
-1. Create a new HTML file (e.g., `newpage.html`)
-2. Use the same app-shell structure as other pages
-3. Mount using `PC.mountShell("pagename")`
-4. Add relevant page-specific data in `data/` folder
-5. Link navigation in the sidebar (managed by `app.js`)
+To extend the prototype:
+
+1. Add demo data to `data/seed-data.js` → `window.PROPCARE_SEED.defaultState`
+2. Update style definitions in `css/style.css`
+3. Extend `js/app.js` to handle new views or interactions
+4. Create new pages by following the existing `login.html` / `index.html` structure
+
+## Seed Data Overview
+
+The `data/seed-data.js` file defines the complete demo environment:
+
+### Users (23 total)
+- **15 Tenants**: Sarah Williams (u1), Liam Naidoo (u2), etc.
+- **8 Technicians**: Daniel Adams (t1), Priya Naidoo (t2), etc.
+- **5 Staff**: Michael Jacobs (m1, manager), Ayesha Patel (m2, manager), Lauren Daniels (a1, admin), Chris van der Merwe (a2, admin), Nandi Maseko (s1, admin)
+
+### Properties (10 total)
+Managed by Michael Jacobs and Ayesha Patel across the Western Cape:
+- Oak Avenue Residences (4 units)
+- The Rondebosch Collection (6 units)
+- Kenilworth Mews (3 units)
+- Observatory Lofts (3 units)
+- Bellville Grove (2 units)
+- Century City Quays (2 units)
+- Durbanville House (2 units)
+- Milnerton Sands (1 unit)
+- Newlands Park (1 unit)
+- Mowbray Terraces (1 unit)
+
+### Requests (40 total)
+- **1 Primary request** - Kitchen sink leaking (REQ-1045, high priority, submitted)
+- **39 Generated requests** - Auto-populated with varied statuses:
+  - Categories: Plumbing, Electrical, Heating & cooling, Security, Appliances, Building & access
+  - Statuses: Submitted, Assigned, Accepted, In progress, Completed, Closed
+  - Priorities: Low, Medium, High
+  - Dates: June 2024 dataset
+  - Ratings for completed requests
 
 ## CI / Deploy
 
