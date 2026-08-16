@@ -13,14 +13,16 @@ PropCare connects residents, property managers and technicians in one auditable 
 
 ## Demo accounts
 
-Open the prototype at `login.html`, pick a demo account, and sign in (any password works — demo only).
+Open the **[live prototype](https://zulfique.github.io/PropCare-WIL-Task1/prototype/login.html)**, pick a demo account from the dropdown, and sign in (any password works — demo only).
 
-| Role | Person | Email | Password |
-|------|--------|-------|----------|
-| Tenant | Sarah Williams | sarahwilliams@example.com | password123 |
-| Property Manager | Michael Jacobs | michaeljacobs@example.com | password123 |
-| Technician | Johan van der Merwe | johan@example.com | password123 |
-| Administrator | System Admin | admin@example.com | password123 |
+| Role | Person | Email |
+|------|--------|-------|
+| Tenant | Sarah Williams | sarah.williams@example.com |
+| Property Manager | Michael Jacobs | michael.jacobs@horizon.co.za |
+| Technician | Daniel Adams | daniel.adams@horizon.co.za |
+| Administrator | Lauren Daniels | lauren.daniels@horizon.co.za |
+
+*All demo passwords are accepted during prototype testing.*
 
 ## Screens
 
@@ -38,24 +40,15 @@ Open the prototype at `login.html`, pick a demo account, and sign in (any passwo
 prototype/
   ├── login.html              # Entry point: login screen with demo account selector
   ├── index.html              # Dashboard/overview for logged-in users
-  ├── requests.html           # My requests page with search & filters
-  ├── profile.html            # User profile page
-  ├── notifications.html      # Notifications/activity center
-  ├── property.html           # Property management page
   ├── 
   ├── css/
-  │   └── styles.css          # All styling: colors, layout, components, responsive design
+  │   └── style.css           # All styling: colors, layout, components, responsive design
   │
   ├── js/
-  │   ├── app.js              # Main application logic, shell mounting, navigation
-  │   └── icons.js            # Icon utilities and definitions
+  │   └── app.js              # Main application logic, shell mounting, navigation
   │
   ├── data/
-  │   ├── user.js             # User data (profiles, roles, permissions)
-  │   ├── requests.js         # Maintenance requests dummy data
-  │   ├── notifications.js    # Notifications/activity data
-  │   ├── overview.js         # Dashboard statistics and metrics
-  │   └── properties.js       # Property and portfolio data
+  │   └── seed-data.js        # Consolidated demo data for all views (users, properties, requests, etc.)
   │
   └── assets/
       └── favicon.svg         # App favicon
@@ -90,6 +83,10 @@ python -m http.server 8124
 ```
 
 Or open `prototype/login.html` directly in any modern browser.
+
+## View Live
+
+**[✨ Click here to view the live prototype on GitHub Pages ✨](https://zulfique.github.io/PropCare-WIL-Task1/prototype/login.html)**
 
 ## Getting Started
 
@@ -137,13 +134,13 @@ All styles are in `css/styles.css` using:
 
 `.github/workflows/build.yml` validates the HTML and JavaScript on every push/PR and deploys the prototype to GitHub Pages on `main`.
 
-## Deployment URL
+## Live Prototype (GitHub Pages)
 
-A GitHub Pages redeploy has been triggered by updating this README. The Pages workflow will publish the `prototype` folder; once the deployment completes the live prototype will be available at:
+🚀 **View the live prototype here:**
 
-https://zulfique.github.io/PropCare-WIL-Task1/login.html
+### https://zulfique.github.io/PropCare-WIL-Task1/prototype/login.html
 
-I will update this URL in the README again after the deployment finishes and a final, working Pages URL is available.
+The prototype is automatically deployed to GitHub Pages whenever changes are pushed to the `main` branch. The `prototype` folder is served as the root of the Pages site.
 
 ## Notes
 
